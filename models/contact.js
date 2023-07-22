@@ -1,5 +1,7 @@
 import { Schema, model } from "mongoose";
 
+import {handleSaveError} from "./hooks.js";
+
 const contactSchema = new Schema({
   name: {
     type: String,
@@ -16,6 +18,10 @@ const contactSchema = new Schema({
     default: false,
   },
 });
+
+// Якщо під час збереження сталася помилка, треба виконати функцію, якщо помилка не сталась, то функція не виконується
+// next: роби далі
+contactSchema.post("save", handleSaveError );
 
 const Contact = model("contact", contactSchema);
 

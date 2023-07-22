@@ -15,7 +15,7 @@ contactsRouter.get("/", contactsController.getAll);
 
 // contactsRouter.get("/:contactId", contactsController.getById);
 
-// contactsRouter.post("/", isEmptyBody, validateBody(contactsSchemas.contactsAddSchema), contactsController.add);
+contactsRouter.post("/", isEmptyBody, validateBody(contactsSchemas.contactsAddSchema), contactsController.add);
 
 // contactsRouter.put("/:contactId", isEmptyBody, validateBody(contactsSchemas.contactsAddSchema),contactsController.updateById);
 
