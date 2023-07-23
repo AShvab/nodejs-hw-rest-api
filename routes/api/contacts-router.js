@@ -6,8 +6,7 @@ import contactsSchemas from "../../schemas/contacts-schemas.js";
 
 import {validateBody} from "../../decorators/index.js";
 
-import {isEmptyBody, isValidId} from "../../middlewars/index.js";
-
+import {isEmptyBody, isEmptyBodyFavorite, isValidId} from "../../middlewars/index.js";
 
 const contactsRouter = express.Router();
 
@@ -19,7 +18,7 @@ contactsRouter.post("/", isEmptyBody, validateBody(contactsSchemas.contactsAddSc
 
 contactsRouter.put("/:contactId", isValidId, isEmptyBody, validateBody(contactsSchemas.contactsAddSchema),contactsController.updateById);
 
-contactsRouter.patch("/:contactId/favorite", isValidId, validateBody(contactsSchemas.contactUpdateFavoriteSchema), contactsController.updateFavorite);
+contactsRouter.patch("/:contactId/favorite", isValidId, isEmptyBodyFavorite, validateBody(contactsSchemas.contactUpdateFavoriteSchema), contactsController.updateFavorite);
 
 contactsRouter.delete("/:contactId", isValidId, contactsController.removeById);
 
