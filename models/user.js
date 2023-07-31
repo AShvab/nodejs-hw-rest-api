@@ -8,13 +8,14 @@ const userSchema = new Schema(
   {
     password: {
       type: String,
+      minlength: 6,
       required: [true, "Set password for user"],
     },
     email: {
       type: String,
-      required: [true, "Email is required"],
-      unique: true,
       match: emailRegexp,
+      required: [true, "Email is required"],
+      unique: true,   
     },
     subscription: {
       type: String,
@@ -23,7 +24,7 @@ const userSchema = new Schema(
     },
     token: String,
   },
-  { versionKey: false, timestamps: true },
+  { versionKey: false, timestamps: true }
 );
 
 userSchema.pre("findOneAndUpdate", validateAtUpdate);
@@ -31,6 +32,8 @@ userSchema.pre("findOneAndUpdate", validateAtUpdate);
 userSchema.post("save", handleSaveError);
 userSchema.post("findOneAndUpdate", handleSaveError);
 
+
+// якщо mongoose намагається підключитися до колекції, якої немає, то він її створює
 const User = model("user", userSchema);
 
 export default User;
