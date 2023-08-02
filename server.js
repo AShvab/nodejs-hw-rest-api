@@ -1,10 +1,10 @@
 import mongoose from "mongoose";
-import dotenv from "dotenv";
+import "dotenv/config";
 
 import app from "./app.js";
 
 //config Знаходить в проєкті файл .env, читає построково і додає ці дані в глобальний об'єкт process.env, те що зліва від дорівнює стає ключем, справа-значенням
-dotenv.config();
+// dotenv.config();
 
 const { DB_HOST, PORT } = process.env;
 
