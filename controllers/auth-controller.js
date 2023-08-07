@@ -6,11 +6,15 @@ import User from "../models/user.js";
 import { ctrlWrapper } from "../decorators/index.js";
 
 import { HttpError } from "../helpers/index.js";
+import fs from "fs/promises";
+import path from "path";
 
 // перевіряємо чи є наша секретна строка
 // console.log(process.env.JWT_SECRET)
 
 const { JWT_SECRET } = process.env;
+
+const avatarPath = path.resolve("public", "avatars");
 
 const signup = async (req, res) => {
   const { email, password } = req.body;
@@ -86,6 +90,13 @@ const updateUserSubscription = async (req, res) => {
   
     res.json(result);
   };
+
+const avatarUpdate = async (req, res) => {
+  const {_id} = req.user;
+  const { path: oldPath, filename } = req.file;
+  const newPath = path.join(avatarPath, filename);
+  await fs.rename(oldPath, newPath)
+}
 
 export default {
   signup: ctrlWrapper(signup),
