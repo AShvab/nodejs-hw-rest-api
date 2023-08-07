@@ -1,5 +1,6 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import path from "path";
 
 import User from "../models/user.js";
 
@@ -7,7 +8,7 @@ import { ctrlWrapper } from "../decorators/index.js";
 
 import { HttpError } from "../helpers/index.js";
 import fs from "fs/promises";
-import path from "path";
+
 
 // перевіряємо чи є наша секретна строка
 // console.log(process.env.JWT_SECRET)
@@ -104,4 +105,5 @@ export default {
   getCurrent: ctrlWrapper(getCurrent),
   signout: ctrlWrapper(signout),
   updateUserSubscription: ctrlWrapper(updateUserSubscription),
+  avatarUpdate: ctrlWrapper(avatarUpdate),
 };
