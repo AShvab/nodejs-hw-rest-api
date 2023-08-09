@@ -104,8 +104,10 @@ const avatarUpdate = async (req, res) => {
   const { path: oldPath, filename } = req.file;
   const newPath = path.join(avatarPath, filename);
 
-  const image = await Jimp.read(oldPath);
-  image.resize(250, 250).write(newPath);
+  const avatar = await Jimp.read(oldPath);
+  avatar.resize(250, 250);
+  avatar.write(oldPath);
+  
   // fs.rename переміщує файл з temp в public/avatars, в newPath вказано новий шлях, включаючи ім'я
   await fs.rename(oldPath, newPath);
   const avatarURL = path.join("avatars", filename);
