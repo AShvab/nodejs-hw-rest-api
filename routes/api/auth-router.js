@@ -4,12 +4,17 @@ import authController from "../../controllers/auth-controller.js";
 import { validateBody } from "../../decorators/index.js";
 
 import usersSchemas from "../../schemas/users-schemas.js";
-import { authenticate, upload } from "../../middlewars/index.js";
+import { authenticate, isEmptyVerifyBody,  upload } from "../../middlewars/index.js";
+
 
 const authRouter = express.Router();
 
 // створюємо маршрут, пишемо перевірку по Joi, додаємо контроллер
 authRouter.post("/register", validateBody(usersSchemas.userSignupSchema), authController.signup);
+
+authRouter.get("/verify/:verificationToken", authController.verify);
+
+authRouter.post("/verify", isEmptyVerifyBody, validateBody(usersSchemas.userEmailSchema), authController.resendVerifyEmail);
 
 authRouter.post(
   "/login", validateBody(usersSchemas.userSigninSchema), authController.signin);
